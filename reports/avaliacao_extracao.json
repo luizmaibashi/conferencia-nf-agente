@@ -1,0 +1,704 @@
+{
+ "limpo": {
+  "modelo": "gemini-3.5-flash-lite",
+  "documentos": 10,
+  "campos": {
+   "acertos": 155,
+   "n": 155,
+   "ic95": [
+    0.976,
+    1.0
+   ]
+  },
+  "por_campo": {
+   "numero": {
+    "acertos": 10,
+    "n": 10
+   },
+   "cnpj_emitente": {
+    "acertos": 10,
+    "n": 10
+   },
+   "data_emissao": {
+    "acertos": 10,
+    "n": 10
+   },
+   "pedido": {
+    "acertos": 10,
+    "n": 10
+   },
+   "valor_total": {
+    "acertos": 10,
+    "n": 10
+   },
+   "item.codigo": {
+    "acertos": 21,
+    "n": 21
+   },
+   "item.descricao": {
+    "acertos": 21,
+    "n": 21
+   },
+   "item.quantidade": {
+    "acertos": 21,
+    "n": 21
+   },
+   "item.valor_unitario": {
+    "acertos": 21,
+    "n": 21
+   },
+   "item.valor_total": {
+    "acertos": 21,
+    "n": 21
+   }
+  },
+  "decisao_vs_gabarito": {
+   "mesma": 10,
+   "conservadora": 0,
+   "perigosa": 0
+  },
+  "notas_com_algum_erro": 0,
+  "erros_pegos_pelas_checagens": 0,
+  "tokens_entrada": 7090,
+  "tokens_saida": 2970,
+  "segundos_mediana": 3.08,
+  "erros": []
+ },
+ "escaneado": {
+  "modelo": "gemini-3.5-flash-lite",
+  "documentos": 10,
+  "campos": {
+   "acertos": 134,
+   "n": 155,
+   "ic95": [
+    0.802,
+    0.91
+   ]
+  },
+  "por_campo": {
+   "numero": {
+    "acertos": 10,
+    "n": 10
+   },
+   "cnpj_emitente": {
+    "acertos": 9,
+    "n": 10
+   },
+   "data_emissao": {
+    "acertos": 10,
+    "n": 10
+   },
+   "pedido": {
+    "acertos": 5,
+    "n": 10
+   },
+   "valor_total": {
+    "acertos": 10,
+    "n": 10
+   },
+   "item.codigo": {
+    "acertos": 16,
+    "n": 21
+   },
+   "item.descricao": {
+    "acertos": 11,
+    "n": 21
+   },
+   "item.quantidade": {
+    "acertos": 21,
+    "n": 21
+   },
+   "item.valor_unitario": {
+    "acertos": 21,
+    "n": 21
+   },
+   "item.valor_total": {
+    "acertos": 21,
+    "n": 21
+   }
+  },
+  "decisao_vs_gabarito": {
+   "mesma": 5,
+   "conservadora": 5,
+   "perigosa": 0
+  },
+  "notas_com_algum_erro": 10,
+  "erros_pegos_pelas_checagens": 1,
+  "tokens_entrada": 12690,
+  "tokens_saida": 2953,
+  "segundos_mediana": 2.28,
+  "erros": [
+   {
+    "doc": "nf_001",
+    "campos": [
+     "pedido"
+    ],
+    "pego_pela_checagem": false,
+    "verdade": {
+     "numero": "1000",
+     "cnpj_emitente": "11222333000181",
+     "razao_social_emitente": "Embalagens Serra Azul Ltda",
+     "data_emissao": "2026-09-01",
+     "pedido": "PC-20260001",
+     "itens": [
+      {
+       "codigo": "CX-12UN",
+       "descricao": "CAIXA PAPELAO ONDULADO 12 UNIDADES",
+       "quantidade": 20.0,
+       "valor_unitario": 2.85,
+       "valor_total": 57.0
+      }
+     ],
+     "valor_total": 57.0
+    },
+    "lida": {
+     "numero": "000001000",
+     "cnpj_emitente": "11222333000181",
+     "razao_social_emitente": "EMBALAGENS SERRA AZUL LTDA",
+     "data_emissao": "2026-09-01",
+     "pedido": "PC-2026331",
+     "itens": [
+      {
+       "codigo": "CX-12UN",
+       "descricao": "CAIXA PAPELAO ONDULADO 12 UNIDADES",
+       "quantidade": 20.0,
+       "valor_unitario": 2.85,
+       "valor_total": 57.0
+      }
+     ],
+     "valor_total": 57.0
+    }
+   },
+   {
+    "doc": "nf_002",
+    "campos": [
+     "pedido"
+    ],
+    "pego_pela_checagem": false,
+    "verdade": {
+     "numero": "1007",
+     "cnpj_emitente": "11222333000181",
+     "razao_social_emitente": "Embalagens Serra Azul Ltda",
+     "data_emissao": "2026-09-02",
+     "pedido": "PC-20260002",
+     "itens": [
+      {
+       "codigo": "FILM-STR",
+       "descricao": "FILME STRETCH 500MM X 25 MICRA BOBINA",
+       "quantidade": 4.0,
+       "valor_unitario": 118.4,
+       "valor_total": 473.6
+      }
+     ],
+     "valor_total": 473.6
+    },
+    "lida": {
+     "numero": "000001007",
+     "cnpj_emitente": "11222333000181",
+     "razao_social_emitente": "EMBALAGENS SERRA AZUL LTDA",
+     "data_emissao": "2026-09-02",
+     "pedido": "PC-20960002",
+     "itens": [
+      {
+       "codigo": "FILM-STR",
+       "descricao": "FILME STRETCH 500MM X 25 MICRA BOBINA",
+       "quantidade": 4.0,
+       "valor_unitario": 118.4,
+       "valor_total": 473.6
+      }
+     ],
+     "valor_total": 473.6
+    }
+   },
+   {
+    "doc": "nf_003",
+    "campos": [
+     "pedido",
+     "item.codigo",
+     "item.descricao"
+    ],
+    "pego_pela_checagem": false,
+    "verdade": {
+     "numero": "1014",
+     "cnpj_emitente": "44555666000181",
+     "razao_social_emitente": "Tampas e Vedações Rio Claro S.A.",
+     "data_emissao": "2026-09-03",
+     "pedido": "PC-20260003",
+     "itens": [
+      {
+       "codigo": "VED-EPDM",
+       "descricao": "ANEL DE VEDACAO EPDM 54MM",
+       "quantidade": 1000.0,
+       "valor_unitario": 1.94,
+       "valor_total": 1940.0
+      },
+      {
+       "codigo": "TMP-28",
+       "descricao": "TAMPA PLASTICA ROSCA 28MM PCO1881 VERMELHA",
+       "quantidade": 1000.0,
+       "valor_unitario": 0.07,
+       "valor_total": 70.0
+      },
+      {
+       "codigo": "TMP-38",
+       "descricao": "TAMPA PLASTICA 38MM COM LACRE AZUL",
+       "quantidade": 1000.0,
+       "valor_unitario": 0.11,
+       "valor_total": 110.0
+      }
+     ],
+     "valor_total": 2120.0
+    },
+    "lida": {
+     "numero": "000001014",
+     "cnpj_emitente": "44555666000181",
+     "razao_social_emitente": "TAMPAS E VEDAÇÕES RIO CLARO S.A.",
+     "data_emissao": "2026-09-03",
+     "pedido": "PC 20260003",
+     "itens": [
+      {
+       "codigo": "VED-EPOM",
+       "descricao": "ANEL DE VEDACAO EPDM 34MM",
+       "quantidade": 1000.0,
+       "valor_unitario": 1.94,
+       "valor_total": 1940.0
+      },
+      {
+       "codigo": "TMP-28",
+       "descricao": "TAMPA PLASTICA ROSCA 28MM PCD1881 VERMELHA",
+       "quantidade": 1000.0,
+       "valor_unitario": 0.07,
+       "valor_total": 70.0
+      },
+      {
+       "codigo": "TMP-38",
+       "descricao": "TAMPA PLASTICA 38MM COM LACRE AZUL",
+       "quantidade": 1000.0,
+       "valor_unitario": 0.11,
+       "valor_total": 110.0
+      }
+     ],
+     "valor_total": 2120.0
+    }
+   },
+   {
+    "doc": "nf_004",
+    "campos": [
+     "pedido"
+    ],
+    "pego_pela_checagem": false,
+    "verdade": {
+     "numero": "1021",
+     "cnpj_emitente": "22113344000140",
+     "razao_social_emitente": "Açúcar Vale do Tietê Comércio Ltda",
+     "data_emissao": "2026-09-04",
+     "pedido": "PC-20260004",
+     "itens": [
+      {
+       "codigo": "ACU-50",
+       "descricao": "ACUCAR CRISTAL TIPO 1 SACO 50KG",
+       "quantidade": 29.0,
+       "valor_unitario": 186.0,
+       "valor_total": 5394.0
+      },
+      {
+       "codigo": "ACU-BIG",
+       "descricao": "ACUCAR CRISTAL BIG BAG 1200KG",
+       "quantidade": 23.0,
+       "valor_unitario": 4310.0,
+       "valor_total": 99130.0
+      }
+     ],
+     "valor_total": 104524.0
+    },
+    "lida": {
+     "numero": "000001021",
+     "cnpj_emitente": "22113344000140",
+     "razao_social_emitente": "ACUCAR VALE DO TIETE COMERCIO LTDA",
+     "data_emissao": "2026-09-04",
+     "pedido": "PC-2026004",
+     "itens": [
+      {
+       "codigo": "ACU-50",
+       "descricao": "ACUCAR CRISTAL TIPO 1 SACO 50KG",
+       "quantidade": 29.0,
+       "valor_unitario": 186.0,
+       "valor_total": 5394.0
+      },
+      {
+       "codigo": "ACU-BIG",
+       "descricao": "ACUCAR CRISTAL BIG BAG 1200KG",
+       "quantidade": 23.0,
+       "valor_unitario": 4310.0,
+       "valor_total": 99130.0
+      }
+     ],
+     "valor_total": 104524.0
+    }
+   },
+   {
+    "doc": "nf_005",
+    "campos": [
+     "item.descricao"
+    ],
+    "pego_pela_checagem": false,
+    "verdade": {
+     "numero": "1028",
+     "cnpj_emitente": "77888999000181",
+     "razao_social_emitente": "Rótulos Pampa Indústria Gráfica Ltda",
+     "data_emissao": "2026-09-05",
+     "pedido": "PC-20260005",
+     "itens": [
+      {
+       "codigo": "ROT-2L",
+       "descricao": "ROTULO BOPP 2L IMPRESSO 6 CORES",
+       "quantidade": 100.0,
+       "valor_unitario": 0.0903,
+       "valor_total": 9.03
+      }
+     ],
+     "valor_total": 9.03
+    },
+    "lida": {
+     "numero": "000001028",
+     "cnpj_emitente": "77888999000181",
+     "razao_social_emitente": "RÓTULOS PAMPA INDÚSTRIA GRÁFICA LTDA",
+     "data_emissao": "2026-09-05",
+     "pedido": "PC-20260005",
+     "itens": [
+      {
+       "codigo": "ROT-2L",
+       "descricao": "ROTULO BOPP 2L IMPRESSO E CORES",
+       "quantidade": 100.0,
+       "valor_unitario": 0.0903,
+       "valor_total": 9.03
+      }
+     ],
+     "valor_total": 9.03
+    }
+   },
+   {
+    "doc": "nf_006",
+    "campos": [
+     "pedido",
+     "item.descricao"
+    ],
+    "pego_pela_checagem": false,
+    "verdade": {
+     "numero": "1035",
+     "cnpj_emitente": "77888999000181",
+     "razao_social_emitente": "Rótulos Pampa Indústria Gráfica Ltda",
+     "data_emissao": "2026-09-06",
+     "pedido": "PC-20260006",
+     "itens": [
+      {
+       "codigo": "ROT-600",
+       "descricao": "ROTULO BOPP 600ML IMPRESSO 6 CORES",
+       "quantidade": 500.0,
+       "valor_unitario": 0.052,
+       "valor_total": 26.0
+      },
+      {
+       "codigo": "ROT-2L",
+       "descricao": "ROTULO BOPP 2L IMPRESSO 6 CORES",
+       "quantidade": 10.0,
+       "valor_unitario": 0.09,
+       "valor_total": 0.9
+      },
+      {
+       "codigo": "ETQ-PAL",
+       "descricao": "ETIQUETA PALETE TERMICA 100X150",
+       "quantidade": 100.0,
+       "valor_unitario": 0.21,
+       "valor_total": 21.0
+      }
+     ],
+     "valor_total": 47.9
+    },
+    "lida": {
+     "numero": "000001035",
+     "cnpj_emitente": "77888999000181",
+     "razao_social_emitente": "RÓTULOS PAMPA INDÚSTRIA GRÁFICA LTDA",
+     "data_emissao": "2026-09-06",
+     "pedido": "PC-20260008",
+     "itens": [
+      {
+       "codigo": "ROT-600",
+       "descricao": "ROTULO BOPP 600ML, IMPRESSO 6 CORES",
+       "quantidade": 500.0,
+       "valor_unitario": 0.052,
+       "valor_total": 26.0
+      },
+      {
+       "codigo": "ROT-2L",
+       "descricao": "ROTULO BOPP 2L, IMPRESSO 6 CORES",
+       "quantidade": 10.0,
+       "valor_unitario": 0.09,
+       "valor_total": 0.9
+      },
+      {
+       "codigo": "ETQ-PAL",
+       "descricao": "ETIQUETA PALETE TERMICA 100X150",
+       "quantidade": 100.0,
+       "valor_unitario": 0.21,
+       "valor_total": 21.0
+      }
+     ],
+     "valor_total": 47.9
+    }
+   },
+   {
+    "doc": "nf_007",
+    "campos": [
+     "item.codigo",
+     "item.descricao"
+    ],
+    "pego_pela_checagem": false,
+    "verdade": {
+     "numero": "1042",
+     "cnpj_emitente": "55667788000186",
+     "razao_social_emitente": "Gases Industriais Litoral Ltda",
+     "data_emissao": "2026-09-07",
+     "pedido": "PC-20260007",
+     "itens": [
+      {
+       "codigo": "CO2-25",
+       "descricao": "GAS CARBONICO ALIMENTICIO CILINDRO 25KG",
+       "quantidade": 4.0,
+       "valor_unitario": 212.5,
+       "valor_total": 850.0
+      },
+      {
+       "codigo": "N2-10",
+       "descricao": "NITROGENIO ALIMENTICIO CILINDRO 10M3",
+       "quantidade": 19.2,
+       "valor_unitario": 164.9,
+       "valor_total": 3166.08
+      }
+     ],
+     "valor_total": 4016.08
+    },
+    "lida": {
+     "numero": "000001042",
+     "cnpj_emitente": "55667788000186",
+     "razao_social_emitente": "GASES INDUSTRIAIS LITORAL LTDA",
+     "data_emissao": "2026-09-07",
+     "pedido": "PC-20260007",
+     "itens": [
+      {
+       "codigo": "COIP-25",
+       "descricao": "GAS CARBONICO ALIMENTICIO CILINDRO 20KG",
+       "quantidade": 4.0,
+       "valor_unitario": 212.5,
+       "valor_total": 850.0
+      },
+      {
+       "codigo": "N2-10",
+       "descricao": "NITROGENIO ALIMENTICIO CILINDRO 10KG",
+       "quantidade": 19.2,
+       "valor_unitario": 164.9,
+       "valor_total": 3166.08
+      }
+     ],
+     "valor_total": 4016.08
+    }
+   },
+   {
+    "doc": "nf_008",
+    "campos": [
+     "item.codigo"
+    ],
+    "pego_pela_checagem": false,
+    "verdade": {
+     "numero": "1049",
+     "cnpj_emitente": "44555666000181",
+     "razao_social_emitente": "Tampas e Vedações Rio Claro S.A.",
+     "data_emissao": "2026-09-08",
+     "pedido": "PC-20260008",
+     "itens": [
+      {
+       "codigo": "TMP-38",
+       "descricao": "TAMPA PLASTICA 38MM COM LACRE AZUL",
+       "quantidade": 50.0,
+       "valor_unitario": 0.11,
+       "valor_total": 5.5
+      },
+      {
+       "codigo": "VED-EPDM",
+       "descricao": "ANEL DE VEDACAO EPDM 54MM",
+       "quantidade": 7.0,
+       "valor_unitario": 1.94,
+       "valor_total": 13.58
+      }
+     ],
+     "valor_total": 19.08
+    },
+    "lida": {
+     "numero": "000001049",
+     "cnpj_emitente": "44555666000181",
+     "razao_social_emitente": "TAMPAS E VEDAÇÕES RIO CLARO S.A.",
+     "data_emissao": "2026-09-08",
+     "pedido": "PC-20260008",
+     "itens": [
+      {
+       "codigo": "TMP-38",
+       "descricao": "TAMPA PLASTICA 38MM COM LACRE AZUL",
+       "quantidade": 50.0,
+       "valor_unitario": 0.11,
+       "valor_total": 5.5
+      },
+      {
+       "codigo": "VED-EPOM",
+       "descricao": "ANEL DE VEDACAO EPDM 54MM",
+       "quantidade": 7.0,
+       "valor_unitario": 1.94,
+       "valor_total": 13.58
+      }
+     ],
+     "valor_total": 19.08
+    }
+   },
+   {
+    "doc": "nf_009",
+    "campos": [
+     "cnpj_emitente",
+     "item.codigo",
+     "item.descricao"
+    ],
+    "pego_pela_checagem": true,
+    "verdade": {
+     "numero": "1056",
+     "cnpj_emitente": "44555666000181",
+     "razao_social_emitente": "Tampas e Vedações Rio Claro S.A.",
+     "data_emissao": "2026-09-09",
+     "pedido": null,
+     "itens": [
+      {
+       "codigo": "TMP-38",
+       "descricao": "TAMPA PLASTICA 38MM COM LACRE AZUL",
+       "quantidade": 500.0,
+       "valor_unitario": 0.11,
+       "valor_total": 55.0
+      },
+      {
+       "codigo": "TMP-28",
+       "descricao": "TAMPA PLASTICA ROSCA 28MM PCO1881 VERMELHA",
+       "quantidade": 1000.0,
+       "valor_unitario": 0.07,
+       "valor_total": 70.0
+      },
+      {
+       "codigo": "VED-EPDM",
+       "descricao": "ANEL DE VEDACAO EPDM 54MM",
+       "quantidade": 20.0,
+       "valor_unitario": 1.94,
+       "valor_total": 38.8
+      }
+     ],
+     "valor_total": 163.8
+    },
+    "lida": {
+     "numero": "000001056",
+     "cnpj_emitente": "44555866000181",
+     "razao_social_emitente": "TAMPAS E VEDAÇÕES RIO CLARO S.A.",
+     "data_emissao": "2026-09-09",
+     "pedido": null,
+     "itens": [
+      {
+       "codigo": "TMP-38",
+       "descricao": "TAMPA PLASTICA 38MM COM LACRE AZUL",
+       "quantidade": 500.0,
+       "valor_unitario": 0.11,
+       "valor_total": 55.0
+      },
+      {
+       "codigo": "TMP-18",
+       "descricao": "TAMPA PLASTICA ROSCA 28MM PCO1881 VERMELHA",
+       "quantidade": 1000.0,
+       "valor_unitario": 0.07,
+       "valor_total": 70.0
+      },
+      {
+       "codigo": "VED-EPOM",
+       "descricao": "ANEL DE VEDACAO EPOM 54MM",
+       "quantidade": 20.0,
+       "valor_unitario": 1.94,
+       "valor_total": 38.8
+      }
+     ],
+     "valor_total": 163.8
+    }
+   },
+   {
+    "doc": "nf_010",
+    "campos": [
+     "item.descricao"
+    ],
+    "pego_pela_checagem": false,
+    "verdade": {
+     "numero": "1063",
+     "cnpj_emitente": "77888999000181",
+     "razao_social_emitente": "Rótulos Pampa Indústria Gráfica Ltda",
+     "data_emissao": "2026-09-10",
+     "pedido": "PC-20260010",
+     "itens": [
+      {
+       "codigo": "ETQ-PAL",
+       "descricao": "ETIQUETA PALETE TERMICA 100X150",
+       "quantidade": 5000.0,
+       "valor_unitario": 0.21,
+       "valor_total": 1050.0
+      },
+      {
+       "codigo": "ROT-2L",
+       "descricao": "ROTULO BOPP 2L IMPRESSO 6 CORES",
+       "quantidade": 5000.0,
+       "valor_unitario": 0.09,
+       "valor_total": 450.0
+      },
+      {
+       "codigo": "ROT-600",
+       "descricao": "ROTULO BOPP 600ML IMPRESSO 6 CORES",
+       "quantidade": 5000.0,
+       "valor_unitario": 0.05,
+       "valor_total": 250.0
+      }
+     ],
+     "valor_total": 1750.0
+    },
+    "lida": {
+     "numero": "000001063",
+     "cnpj_emitente": "77888999000181",
+     "razao_social_emitente": "ROTULOS PAMPA INDUSTRIA GRAFICA LTDA",
+     "data_emissao": "2026-09-10",
+     "pedido": "PC-20260010",
+     "itens": [
+      {
+       "codigo": "ETQ-PAL",
+       "descricao": "ETIQUETA PALETE TERMICA 100X150",
+       "quantidade": 5000.0,
+       "valor_unitario": 0.21,
+       "valor_total": 1050.0
+      },
+      {
+       "codigo": "ROT-2L",
+       "descricao": "ROTULO BOPP 2L IMPRESSO 4 CORES",
+       "quantidade": 5000.0,
+       "valor_unitario": 0.09,
+       "valor_total": 450.0
+      },
+      {
+       "codigo": "ROT-600",
+       "descricao": "ROTULO BOPP 600ML IMPRESSO 4 CORES",
+       "quantidade": 5000.0,
+       "valor_unitario": 0.05,
+       "valor_total": 250.0
+      }
+     ],
+     "valor_total": 1750.0
+    }
+   }
+  ]
+ },
+ "interrompido": null
+}
