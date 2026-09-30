@@ -156,7 +156,8 @@ def _brl(v: float, casas: int = 2) -> str:
     return s.replace(",", "X").replace(".", ",").replace("X", ".")
 
 
-def para_danfe(nota: NotaFiscal) -> bytes:
+def para_danfe(nota: NotaFiscal, observacao: str | None = None) -> bytes:
+    """`observacao` sai em "Dados adicionais", campo livre que o fornecedor preenche."""
     buf = io.BytesIO()
     c = canvas.Canvas(buf, pagesize=A4)
     w, h = A4
@@ -228,6 +229,8 @@ def para_danfe(nota: NotaFiscal) -> bytes:
     c.setFont("Helvetica", 7)
     extra = f"Pedido de compra: {nota.pedido}. " if nota.pedido else ""
     c.drawString(x0, y - 4 * mm, extra + "Documento fictício gerado para teste. Sem valor fiscal.")
+    if observacao:
+        c.drawString(x0, y - 8 * mm, observacao)
     c.showPage()
     c.save()
     return buf.getvalue()

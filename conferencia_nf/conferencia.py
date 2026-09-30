@@ -50,7 +50,9 @@ def conferir(nota: NotaFiscal, pedidos: dict[str, Pedido], origem: str) -> Resul
         if ped is None:
             divergencias.append(Divergencia(
                 tipo="item_fora_do_pedido", codigo=item.codigo,
-                detalhe=f"{item.descricao} não consta no pedido {pedido.numero}",
+                # Só o código: a descrição é texto livre do fornecedor e não entra no que
+                # o sistema afirma (o agente trata `detalhe` como confiável).
+                detalhe=f"código {item.codigo} não consta no pedido {pedido.numero}",
                 diferenca_rs=round(item.valor_total, 2)))
             continue
         excesso = (item.valor_unitario - ped.valor_unitario) * item.quantidade
