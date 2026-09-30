@@ -64,6 +64,32 @@ produção.
 | Acerto no escaneado | ~90% | 86% (IC95% 80–91%) |
 | Campo que mais erra | descrição e CNPJ | descrição e nº do pedido; CNPJ errou 1/10 e foi barrado pelo dígito verificador |
 
+## Fluxo no n8n (F2)
+
+O fornecedor (ou o e-mail de entrada) manda o arquivo para um webhook do n8n. O n8n chama
+a API, separa por quem precisa agir e registra na "planilha" (CSV via API; trocar por
+Google Sheets é trocar só o nó de saída).
+
+```
+Nota recebida (webhook) → Conferir na API → Quem precisa agir?
+    ├─ Automático ──────────────┐
+    ├─ Comprador contesta ──────┼→ Registrar na planilha → Responder ao remetente
+    └─ Revisor confere a leitura┘
+```
+
+Lote de teste com mistura fixada antes de medir (7 XML + 3 escaneados):
+
+| Fila | Notas | Por quê |
+|---|---|---|
+| Automático | 5 | tudo dentro do pedido e da tolerância |
+| Comprador contesta | 3 | divergência real: preço, quantidade e item fora do pedido |
+| Revisor confere a leitura | 2 | 1 nota sem pedido (esperado) e 1 escaneado em que o LLM leu `PC 20260003` em vez de `PC-20260003` |
+
+5 de 10 chegaram a uma pessoa, e só 1 por causa do LLM. O que dominou foi a taxa de
+problema real das notas, que aqui é alta por construção (4 de 10). Num cliente, essa taxa
+é o primeiro número a levantar no diagnóstico: ela define o tamanho do time que sobra,
+mais do que a qualidade do modelo.
+
 ## Como rodar
 
 ```bash
@@ -73,6 +99,18 @@ python -m conferencia_nf.gerar_dados --n 30 --saida data
 python -m pytest -q             # não chama API
 uvicorn api:app --port 8000     # POST /conferir com o arquivo
 ```
+
+Com n8n (Docker):
+
+```bash
+docker compose up -d --build
+docker compose exec n8n n8n import:workflow --input=/workflows/conferencia.json
+docker compose exec n8n n8n publish:workflow --id=ConfNFxPedido0001
+docker compose restart n8n
+python scripts/enviar_lote.py   # manda 10 notas ao webhook
+```
+
+No Git Bash do Windows, use `MSYS_NO_PATHCONV=1` antes dos comandos `exec`.
 
 ## Estrutura
 
@@ -89,8 +127,6 @@ uvicorn api:app --port 8000     # POST /conferir com o arquivo
 
 ## Próximas fases
 
-- **F2**: n8n recebe o documento por webhook, chama a API, grava o resultado e avisa o
-  revisor quando precisa de humano.
 - **F3**: agente com ferramentas só de leitura para explicar as divergências, com teste de
   prompt injection escrito dentro do PDF.
 - **F4**: custo por nota em R$ e conta de retorno para um time de conferência.

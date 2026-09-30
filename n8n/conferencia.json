@@ -1,0 +1,166 @@
+{
+  "id": "ConfNFxPedido0001",
+  "name": "Conferência NF × Pedido",
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "nodes": [
+    {
+      "id": "a1b2c3d4-0001-4000-8000-000000000001",
+      "name": "Nota recebida",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 300],
+      "webhookId": "5f3a9e2c-7d41-4b8e-9c10-2a6f8d3e4b01",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "nota",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "a1b2c3d4-0002-4000-8000-000000000002",
+      "name": "Conferir na API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [240, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "http://api:8000/conferir",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            { "parameterType": "formBinaryData", "name": "arquivo", "inputDataFieldName": "arquivo" }
+          ]
+        },
+        "options": { "timeout": 120000 }
+      }
+    },
+    {
+      "id": "a1b2c3d4-0003-4000-8000-000000000003",
+      "name": "Quem precisa agir?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [480, 300],
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2 },
+                "conditions": [
+                  { "id": "c1", "leftValue": "={{ $json.status }}", "rightValue": "aprovada",
+                    "operator": { "type": "string", "operation": "equals" } }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Automático"
+            },
+            {
+              "conditions": {
+                "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2 },
+                "conditions": [
+                  { "id": "c2", "leftValue": "={{ $json.status }}", "rightValue": "divergente",
+                    "operator": { "type": "string", "operation": "equals" } }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Comprador"
+            },
+            {
+              "conditions": {
+                "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2 },
+                "conditions": [
+                  { "id": "c3", "leftValue": "={{ $json.status }}", "rightValue": "revisao_humana",
+                    "operator": { "type": "string", "operation": "equals" } }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Revisor"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "a1b2c3d4-0004-4000-8000-000000000004",
+      "name": "Fila: automático",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [720, 120],
+      "parameters": {
+        "assignments": { "assignments": [ { "id": "f1", "name": "fila", "value": "automatico", "type": "string" } ] },
+        "includeOtherFields": true,
+        "options": {}
+      }
+    },
+    {
+      "id": "a1b2c3d4-0005-4000-8000-000000000005",
+      "name": "Fila: comprador contesta",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [720, 300],
+      "parameters": {
+        "assignments": { "assignments": [ { "id": "f2", "name": "fila", "value": "comprador", "type": "string" } ] },
+        "includeOtherFields": true,
+        "options": {}
+      }
+    },
+    {
+      "id": "a1b2c3d4-0006-4000-8000-000000000006",
+      "name": "Fila: revisor confere a leitura",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [720, 480],
+      "parameters": {
+        "assignments": { "assignments": [ { "id": "f3", "name": "fila", "value": "revisor", "type": "string" } ] },
+        "includeOtherFields": true,
+        "options": {}
+      }
+    },
+    {
+      "id": "a1b2c3d4-0007-4000-8000-000000000007",
+      "name": "Registrar na planilha",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [960, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "http://api:8000/registros",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ arquivo: $json.arquivo, origem: $json.origem, status: $json.status, fila: $json.fila, valor_total: $json.nota ? $json.nota.valor_total : null, diferenca_rs: ($json.divergencias || []).reduce((s, d) => s + d.diferenca_rs, 0), motivo: [...($json.divergencias || []).map(d => d.detalhe), ...($json.motivos_revisao || [])].join('; ') }) }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "a1b2c3d4-0008-4000-8000-000000000008",
+      "name": "Responder ao remetente",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1200, 300],
+      "parameters": { "respondWith": "firstIncomingItem", "options": {} }
+    }
+  ],
+  "connections": {
+    "Nota recebida": { "main": [[ { "node": "Conferir na API", "type": "main", "index": 0 } ]] },
+    "Conferir na API": { "main": [[ { "node": "Quem precisa agir?", "type": "main", "index": 0 } ]] },
+    "Quem precisa agir?": {
+      "main": [
+        [ { "node": "Fila: automático", "type": "main", "index": 0 } ],
+        [ { "node": "Fila: comprador contesta", "type": "main", "index": 0 } ],
+        [ { "node": "Fila: revisor confere a leitura", "type": "main", "index": 0 } ]
+      ]
+    },
+    "Fila: automático": { "main": [[ { "node": "Registrar na planilha", "type": "main", "index": 0 } ]] },
+    "Fila: comprador contesta": { "main": [[ { "node": "Registrar na planilha", "type": "main", "index": 0 } ]] },
+    "Fila: revisor confere a leitura": { "main": [[ { "node": "Registrar na planilha", "type": "main", "index": 0 } ]] },
+    "Registrar na planilha": { "main": [[ { "node": "Responder ao remetente", "type": "main", "index": 0 } ]] }
+  },
+  "pinData": {}
+}
