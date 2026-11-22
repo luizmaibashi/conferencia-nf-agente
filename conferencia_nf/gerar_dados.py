@@ -12,7 +12,7 @@ import random
 from datetime import date, timedelta
 from pathlib import Path
 
-import fitz  # PyMuPDF
+import pymupdf
 from lxml import etree
 from PIL import Image, ImageFilter
 from reportlab.lib.pagesizes import A4
@@ -238,7 +238,7 @@ def para_danfe(nota: NotaFiscal, observacao: str | None = None) -> bytes:
 
 def escanear(pdf: bytes, rng: random.Random) -> bytes:
     """Simula cópia escaneada: resolução baixa, inclinação, desfoque, ruído e JPEG ruim."""
-    pagina = fitz.open(stream=pdf, filetype="pdf")[0]
+    pagina = pymupdf.open(stream=pdf, filetype="pdf")[0]
     pix = pagina.get_pixmap(dpi=90)
     img = Image.open(io.BytesIO(pix.tobytes("png"))).convert("L")
     img = img.rotate(rng.uniform(-3, 3), expand=True, fillcolor=235)
